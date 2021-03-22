@@ -137,7 +137,7 @@ class InstrumentMock:
         assert(isinstance(repetitions, int))
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] - Mixing -" + str(repetitions) + "times, volume" + str(volume) + "uL")
+        mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] - Mixing - " + str(repetitions) + " times, volume " + str(volume) + "uL")
 
 
 class OpenTronsMock:
