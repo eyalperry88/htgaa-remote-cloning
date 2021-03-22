@@ -148,7 +148,7 @@ class OpenTronsMock:
         print("...\nLoaded", labware, "in deck slot", slot)
         return LabwareMock(labware, slot, label)
 
-    def load_module(self, module, slot):
+    def load_module(self, module, slot=0):
         print("...\nLoaded module", module, "in deck slot", slot)
         return ModuleMock(module, slot)
 

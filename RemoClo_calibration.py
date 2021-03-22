@@ -33,7 +33,7 @@ def run(protocol):
 
     temperature_module = protocol.load_module('temperature module gen2', 4)
 
-    thermocycler_module = protocol.load_module('thermocycler', 10)
+    thermocycler_module = protocol.load_module('thermocycler')
 
 
     # Cold tray
