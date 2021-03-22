@@ -102,7 +102,7 @@ class ModuleMock:
             assert(isinstance(step['temperature'], int))
             assert(isinstance(step['hold_time_seconds'], int))
 
-            mock_print("Temperature: " + str(step['temperature']) + "C, Time: " + step['hold_time_seconds'] + " seconds")
+            mock_print("Temperature: " + str(step['temperature']) + "C, Time: " + str(step['hold_time_seconds']) + " seconds")
 
 
 
