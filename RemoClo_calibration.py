@@ -82,6 +82,6 @@ def run(protocol):
         tip_racks=[tips_20ul])
 
     pipette_300ul = protocol.load_instrument(
-        "p20_single",
+        "p300_single",
         "right",
         tip_racks=[tips_300ul])
