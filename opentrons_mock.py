@@ -1,3 +1,9 @@
+import time
+
+def mock_print(str):
+    print("...\n" + str)
+    time.sleep(0.3)
+
 class WellMock:
     labware = ""
     well_id = ""
@@ -52,34 +58,33 @@ class ModuleMock:
         self.slot = slot
 
     def load_labware(self, labware, label):
-        print("...\nModule", self.module, "loaded", labware)
+        mock_print("Module " + str(self.module) + " loaded " + str(labware))
         return LabwareMock(labware, self.slot, label)
 
     def set_temperature(self, temp):
         assert(isinstance(temp, int))
         assert(temp >= 4 and temp <= 110)
-        print("...\nSetting temperature to ", temp, "C")
+        mock_print("Setting temperature to " + str(temp) + "C")
 
     def open_lid(self):
-        print("...\nOpenning lid")
+        mock_print("Opening lid")
 
     def close_lid(self):
-        print("...\nClosing lid")
+        mock_print("Closing lid")
 
     def set_lid_temperature(self, temp):
         assert(isinstance(temp, int))
         assert(temp >= 4 and temp <= 110)
-        print("...\nSetting lid temperature to ", temp, "C")
+        mock_print("Setting lid temperature to " + str(temp) + "C")
 
     def set_block_temperature(self, temp, hold_time_minutes=0, block_max_volume=50):
         assert(isinstance(temp, int))
         assert(temp >= 4 and temp <= 110)
         assert(isinstance(hold_time_minutes, int))
         assert(isinstance(block_max_volume, int))
-        print("...\nSetting block temperature to ", temp, "C")
+        mock_print("Setting block temperature to " + str(temp) + "C")
         if (hold_time_minutes > 0):
-            print("For", hold_time_minutes, "minutes...");
-
+            mock_print("Holding for " + str(hold_time_minutes) + " minutes...");
 
 
 
@@ -101,7 +106,7 @@ class InstrumentMock:
             col += 1
 
         if col > 12:
-            print("WARNING: OUT OF TIPS!!!")
+            mock_print("WARNING: OUT OF TIPS!!!")
 
         self.starting_tip.set_row_col(row, col)
 
@@ -109,30 +114,30 @@ class InstrumentMock:
         row, col = self.starting_tip.get_row_col()
         assert(row >= ord('A') and row <= ord('H'))
         assert(col >= 1 and col <= 12)
-        print("...\n", self.instrument, "is picking up a tip from", self.starting_tip)
+        mock_print(str(self.instrument) + " is picking up a tip from " + str(self.starting_tip))
         self.advance_tip()
 
     def drop_tip(self):
-        print("...\n", self.instrument, "is dropping a tip")
+        mock_print(str(self.instrument) + " is dropping a tip");
 
     def aspirate(self, volume, well):
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        print("...\n#####",well.labware, "[", well.well_id, "] ---> (", volume, "uL)")
+        mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] ---> (" + str(volume) + "uL)")
 
     def dispense(self, volume, well):
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        print("...\n#####",well.labware, "[", well.well_id, "] <--- (", volume, "uL)")
+        mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] <--- (" + str(volume) + "uL)")
 
     def blow_out(self):
-        print("...\n", self.instrument, "blow out")
+        mock_print(str(self.instrument) + " blow out")
 
     def mix(self, repetitions, volume, well):
         assert(isinstance(repetitions, int))
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        print("...\n#####", well.labware, "[", well.well_id, "] - Mixing -",repetitions,"times, volume", volume, "uL")
+        mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] - Mixing -" + str(repetitions) + "times, volume" + str(volume) + "uL")
 
 
 class OpenTronsMock:
@@ -142,19 +147,22 @@ class OpenTronsMock:
         self.x = 0
 
     def home(self):
-        print("Going home!")
+        mock_print("Going home!")
 
     def load_labware(self, labware, slot, label):
-        print("...\nLoaded", labware, "in deck slot", slot)
+        mock_print("Loaded " + str(labware) + " in deck slot " + str(slot))
         return LabwareMock(labware, slot, label)
 
     def load_module(self, module, slot=0):
-        print("...\nLoaded module", module, "in deck slot", slot)
+        mock_print("Loaded module " + str(module) + " in deck slot " + str(slot))
         return ModuleMock(module, slot)
 
     def load_instrument(self, instrument, mount, tip_racks):
-        print("...\nLoaded instrument", instrument, "in mount", mount)
+        mock_print("Loaded instrument " + str(instrument) + " in mount " + str(mount))
         return InstrumentMock(instrument, mount, tip_racks)
+
+    def pause(self):
+        mock_print("Robot pause")
 
 
 
