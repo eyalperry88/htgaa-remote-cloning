@@ -77,14 +77,32 @@ class ModuleMock:
         assert(temp >= 4 and temp <= 110)
         mock_print("Setting lid temperature to " + str(temp) + "C")
 
-    def set_block_temperature(self, temp, hold_time_minutes=0, block_max_volume=50):
+    def deactivate_lid(self):
+        mock_print("Deactivate lid")
+
+    def set_block_temperature(self, temp, hold_time_minutes=0, hold_time_seconds=0, block_max_volume=50):
         assert(isinstance(temp, int))
         assert(temp >= 4 and temp <= 110)
         assert(isinstance(hold_time_minutes, int))
         assert(isinstance(block_max_volume, int))
         mock_print("Setting block temperature to " + str(temp) + "C")
         if (hold_time_minutes > 0):
-            mock_print("Holding for " + str(hold_time_minutes) + " minutes...");
+            mock_print("Holding for " + str(hold_time_minutes) + " minutes...")
+        if (hold_time_seconds > 0):
+            mock_print("Holding for " + str(hold_time_seconds) + " seconds...")
+
+    def execute_profile(self, steps, repetitions, block_max_volume):
+        assert(isinstance(repetitions, int))
+        assert(isinstance(block_max_volume, int))
+
+        mock_print("Executing following protocol for " + str(repetitions) + " cycles")
+
+        for step in steps:
+            assert(isinstance(step, dict))
+            assert(isinstance(step['temperature'], int))
+            assert(isinstance(step['hold_time_seconds'], int))
+
+            mock_print("Temperature: " + str(step['temperature']) + "C, Time: " + step['hold_time_seconds'] + " seconds")
 
 
 
