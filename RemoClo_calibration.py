@@ -1,3 +1,10 @@
+metadata = {
+    'protocolName': 'Opentrons Logo',
+    'author': 'Opentrons <protocols@opentrons.com>',
+    'source': 'Protocol Library',
+    'apiLevel': '2.9'
+}
+
 def run(protocol):
 
     # Load labware
