@@ -85,3 +85,62 @@ def run(protocol):
         "p300_single",
         "right",
         tip_racks=[tips_300ul])
+
+    # Choose starting tips, in case some of the tips are already used
+
+    pipette_20ul.starting_tip = tips_20ul.well('A1')
+    pipette_300ul.starting_tip = tips_300ul.well('A1')
+
+    # And test it by picking and disposing a tip
+
+    pipette_20ul.pick_up_tip()
+    pipette_20ul.drop_tip()
+
+    pipette_300ul.pick_up_tip()
+    pipette_300ul.drop_tip()
+
+    # Continue only if this step worked!
+
+    # Restriction Digest
+
+    # Water
+    pipette_20ul.pick_up_tip()
+    pipette_20ul.aspirate(40, water_container['A1'])
+    pipette_20ul.dispense(40, reaction_plate['A1'])
+    pipette_20ul.blow_out()
+    pipette_20ul.drop_tip()
+
+    # Buffer
+    pipette_20ul.pick_up_tip()
+    pipette_20ul.aspirate(5, cold_tray['A1'])
+    pipette_20ul.dispense(5, reaction_plate['A1'])
+    pipette_20ul.mix(2, 10, reaction_plate['A1'])  # mix 2 times a volume of 10uL
+    pipette_20ul.blow_out()
+    pipette_20ul.drop_tip()
+
+    # pUC19 DNA
+    pipette_20ul.pick_up_tip()
+    pipette_20ul.aspirate(2, cold_tray['A2'].bottom(0.5)) # 0.5mm from the bottom, instead of 1mm
+    pipette_20ul.dispense(2, reaction_plate['A1'])
+    pipette_20ul.mix(2, 10, reaction_plate['A1'])
+    pipette_20ul.blow_out()
+    pipette_20ul.drop_tip()
+
+    # PvuII Enzyme
+    pipette_20ul.pick_up_tip()
+    pipette_20ul.aspirate(3, cold_tray['A3'])
+    pipette_20ul.dispense(3, reaction_plate['A1'])
+    pipette_20ul.mix(2, 10, reaction_plate['A1'])
+    pipette_20ul.blow_out()
+    pipette_20ul.drop_tip()
+
+    # Start the reaction!
+    # Heat up the thermocycler for the desired temperature and desired time period
+
+    thermocycler_module.close_lid()
+    thermocycler_module.set_block_temperature(37,
+                                              hold_time_minutes=15,
+                                              block_max_volume=50) # block_max_volume should be the total reaction volume
+
+    # We're done with the restrioction digest! wait at 4C until the TA picks up the sample
+    thermocycler_module.set_block_temperature(4)
