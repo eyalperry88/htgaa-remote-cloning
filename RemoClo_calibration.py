@@ -104,11 +104,11 @@ def run(protocol):
     # Restriction Digest
 
     # Water
-    pipette_20ul.pick_up_tip()
-    pipette_20ul.aspirate(40, water_container['A1'])
-    pipette_20ul.dispense(40, reaction_plate['A1'])
-    pipette_20ul.blow_out()
-    pipette_20ul.drop_tip()
+    pipette_300ul.pick_up_tip()
+    pipette_300ul.aspirate(40, water_container['A1'])
+    pipette_300ul.dispense(40, reaction_plate['A1'])
+    pipette_300ul.blow_out()
+    pipette_300ul.drop_tip()
 
     # Buffer
     pipette_20ul.pick_up_tip()
