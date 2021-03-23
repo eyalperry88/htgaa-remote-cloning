@@ -120,10 +120,10 @@ class InstrumentMock:
         if "p20" in instrument:
             label = "P20"
             range = (1, 20)
-        else if "p300" in instrument:
+        elif "p300" in instrument:
             label = "P300"
             range = (20, 300)
-        else if "p1000" in instrument:
+        elif "p1000" in instrument:
             label = "P1000"
             range = (100, 1000)
         else
