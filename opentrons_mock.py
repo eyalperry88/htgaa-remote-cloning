@@ -109,11 +109,26 @@ class ModuleMock:
 class InstrumentMock:
     instrument = ""
     mount = ""
+    label = ""
     starting_tip = None
+    range = (0, 1000)
 
     def __init__(self, instrument, mount, tip_racks):
         self.instrument = instrument
         self.mount = mount
+
+        if "p20" in instrument:
+            label = "P20"
+            range = (1, 20)
+        else if "p300" in instrument:
+            label = "P300"
+            range = (20, 300)
+        else if "p1000" in instrument:
+            label = "P1000"
+            range = (100, 1000)
+        else
+            mock_print("WARNING: UNSUPPORTED PIPETTE")
+            assert false
 
     def advance_tip(self):
         row, col = self.starting_tip.get_row_col()
@@ -125,6 +140,7 @@ class InstrumentMock:
 
         if col > 12:
             mock_print("WARNING: OUT OF TIPS!!!")
+            assert false
 
         self.starting_tip.set_row_col(row, col)
 
@@ -132,29 +148,32 @@ class InstrumentMock:
         row, col = self.starting_tip.get_row_col()
         assert(row >= ord('A') and row <= ord('H'))
         assert(col >= 1 and col <= 12)
-        mock_print(str(self.instrument) + " is picking up a tip from " + str(self.starting_tip))
+        mock_print(self.label + " is picking up a tip from " + str(self.starting_tip))
         self.advance_tip()
 
     def drop_tip(self):
-        mock_print(str(self.instrument) + " is dropping a tip");
+        mock_print(self.label + " is dropping a tip");
 
     def aspirate(self, volume, well):
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
+        assert volume >= range[0] and volume <= range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] ---> (" + str(volume) + "uL)")
 
     def dispense(self, volume, well):
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
+        assert volume >= range[0] and volume <= range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] <--- (" + str(volume) + "uL)")
 
     def blow_out(self):
-        mock_print(str(self.instrument) + " blow out")
+        mock_print(self.label + " blow out")
 
     def mix(self, repetitions, volume, well):
         assert(isinstance(repetitions, int))
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
+        assert volume >= range[0] and volume <= range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] - Mixing - " + str(repetitions) + " times, volume " + str(volume) + "uL")
 
 
