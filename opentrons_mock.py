@@ -126,7 +126,7 @@ class InstrumentMock:
         elif "p1000" in instrument:
             label = "P1000"
             range = (100, 1000)
-        else
+        else:
             mock_print("WARNING: UNSUPPORTED PIPETTE")
             assert false
 
