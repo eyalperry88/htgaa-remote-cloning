@@ -111,21 +111,21 @@ class InstrumentMock:
     mount = ""
     label = ""
     starting_tip = None
-    range = (0, 1000)
+    vol_range = (0, 1000)
 
     def __init__(self, instrument, mount, tip_racks):
         self.instrument = instrument
         self.mount = mount
 
         if "p20" in instrument:
-            label = "P20"
-            range = (1, 20)
+            self.label = "P20"
+            self.vol_range = (1, 20)
         elif "p300" in instrument:
-            label = "P300"
-            range = (20, 300)
+            self.label = "P300"
+            self.vol_range = (20, 300)
         elif "p1000" in instrument:
-            label = "P1000"
-            range = (100, 1000)
+            self.label = "P1000"
+            self.vol_range = (100, 1000)
         else:
             mock_print("WARNING: UNSUPPORTED PIPETTE")
             assert false
@@ -157,13 +157,13 @@ class InstrumentMock:
     def aspirate(self, volume, well):
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        assert volume >= range[0] and volume <= range[1]
+        assert volume >= self.vol_range[0] and volume <= self.vol_range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] ---> (" + str(volume) + "uL)")
 
     def dispense(self, volume, well):
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        assert volume >= range[0] and volume <= range[1]
+        assert volume >= self.vol_range[0] and volume <= self.vol_range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] <--- (" + str(volume) + "uL)")
 
     def blow_out(self):
@@ -173,7 +173,7 @@ class InstrumentMock:
         assert(isinstance(repetitions, int))
         assert(isinstance(volume, (int, float)))
         assert(isinstance(well, WellMock))
-        assert volume >= range[0] and volume <= range[1]
+        assert volume >= self.vol_range[0] and volume <= self.vol_range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] - Mixing - " + str(repetitions) + " times, volume " + str(volume) + "uL")
 
 
