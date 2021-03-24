@@ -28,7 +28,7 @@ class WellMock:
         return self
 
     def move(self, loc):
-        assert(isinstance(temp, PointMock))
+        assert(isinstance(loc, PointMock))
         return self
 
     def __repr__(self):
