@@ -183,6 +183,11 @@ class InstrumentMock:
         assert volume >= self.vol_range[0] and volume <= self.vol_range[1]
         mock_print("##### " + str(well.labware) + " [" + str(well.well_id) + "] - Mixing - " + str(repetitions) + " times, volume " + str(volume) + "uL")
 
+    def move_to(self, loc, force_direct=False):
+        assert(isinstance(force_direct, bool))
+        assert(isinstance(loc, WellMock))
+        mock_print(self.label + " is moving");
+
 
 class OpenTronsMock:
     def home(self):
