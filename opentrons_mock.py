@@ -24,6 +24,13 @@ class WellMock:
         assert z >= 0
         return self
 
+    def center(self):
+        return self
+
+    def move(self, loc):
+        assert(isinstance(temp, PointMock))
+        return self
+
     def __repr__(self):
         return self.well_id
 
@@ -178,11 +185,6 @@ class InstrumentMock:
 
 
 class OpenTronsMock:
-    x = 0
-
-    def __init__(self):
-        self.x = 0
-
     def home(self):
         mock_print("Going home!")
 
@@ -201,7 +203,20 @@ class OpenTronsMock:
     def pause(self):
         mock_print("Robot pause")
 
+class PointMock:
+    x = 0
+    y = 0
+    z = 0
 
+    def __init__(self, x, y, z=0):
+        self.x = x
+        self.y = y
+        self.z = z
+
+class types:
+    @staticmethod
+    def Point(x, y, z=0):
+        return PointMock(x, y, z)
 
 def opentrons_execute_get_mock_api():
     return OpenTronsMock()
