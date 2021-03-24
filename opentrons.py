@@ -27,6 +27,10 @@ class WellMock:
     def center(self):
         return self
 
+    def top(self, z=0):
+        assert(isinstance(z, (int, float)))
+        return self
+
     def move(self, loc):
         assert(isinstance(loc, PointMock))
         return self
